@@ -65,9 +65,7 @@ export default function ScrollableNav({ categories }: { categories: any[] }) {
       <div
         ref={scrollRef}
         className={`rounded-full  overflow-x-scroll max-sm:w-full md:max-w-[90%] scroll-hide ${
-          scrolled
-            ? "bg-[#EDE9F2]/40 backdrop-blur-md shadow-md"
-            : "bg-[#EDE9F2]"
+          scrolled ? "bg-[#EDE9F2]/40 backdrop-blur-md" : "bg-[#EDE9F2]"
         }`}
       >
         <div className="flex flex-row items-center whitespace-nowrap w-max py-[2px] z-10">
