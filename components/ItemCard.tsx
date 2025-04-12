@@ -31,7 +31,7 @@ const ItemCard = ({ item }: { item: Item }) => {
       </div>
       <h2 className="text-xl font-bold ml-2 line-clamp-1">{name}</h2>
       <p className="text-2xl font-proxima-bold ml-2 text-primary">
-        {size.prices[0].price} UZS
+        {size?.prices?.[0]?.price?.toLocaleString?.() ?? "—"} UZS
       </p>
     </div>
   );
