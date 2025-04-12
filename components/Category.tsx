@@ -1,5 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef } from "react";
 import ItemCard from "./ItemCard";
+import { useCategoryStore } from "@/store/category";
+import { useIntersection } from "react-use";
 
 interface Props {
   categoryId: string;
@@ -8,21 +12,23 @@ interface Props {
 }
 
 const Category = ({ categoryId, name, items }: Props) => {
+  const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
+  const intersectionRef = useRef(null);
+  const intersection = useIntersection(intersectionRef, { threshold: 0.4 });
+
+  useEffect(() => {
+    if (intersection?.isIntersecting) {
+      setActiveCategoryId(categoryId);
+    }
+  }, [intersection, setActiveCategoryId, categoryId]);
+
   return (
-    <div id={categoryId} className="mb-8">
+    <div id={categoryId} className="mb-8 p-2" ref={intersectionRef}>
       <h1 className="text-2xl font-bold mb-4">{name}</h1>
 
-      <div className="flex flex-row flex-wrap md:justify-between justify-center">
-        {items.map((item: any) => {
-          const size = item.itemSizes[0];
-          return (
-            <ItemCard
-              key={item.id}
-              name={item.name}
-              description={item.description}
-              size={size}
-            />
-          );
+      <div className="flex flex-wrap justify-start gap-2 w-full">
+        {items.map((item: any, index) => {
+          return <ItemCard key={index} item={item} />;
         })}
       </div>
     </div>

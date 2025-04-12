@@ -1,17 +1,22 @@
 import Image from "next/image";
 import React from "react";
 
-const ItemCard = ({
-  name,
-  description,
-  size,
-}: {
+interface ItemSize {
+  buttonImageUrl?: string;
+  prices: { price: number }[];
+}
+
+interface Item {
+  id: string;
   name: string;
-  description: string;
-  size: string;
-}) => {
+  itemSizes: ItemSize[];
+}
+
+const ItemCard = ({ item }: { item: Item }) => {
+  const { name, itemSizes } = item;
+  const size = itemSizes[0];
   return (
-    <div className="w-[286px] h-[310px] bg-white rounded-xl hover:shadow-lg transition mb-4 flex flex-col gap-4">
+    <div className="md:w-[286px] h-[310px] max-sm:w-[48%] bg-white rounded-xl hover:shadow-lg transition mb-4 flex flex-col gap-4">
       <div className="rounded-t-xl h-[200px] overflow-hidden">
         <Image
           src={
@@ -24,7 +29,7 @@ const ItemCard = ({
           className="rounded-t-xl object-contain"
         />
       </div>
-      <h2 className="text-xl font-bold ml-2">{name}</h2>
+      <h2 className="text-xl font-bold ml-2 line-clamp-1">{name}</h2>
       <p className="text-2xl font-proxima-bold ml-2 text-primary">
         {size.prices[0].price} UZS
       </p>

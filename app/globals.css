@@ -32,6 +32,10 @@ body {
   color: var(--primary);
 }
 
+.text-secondary {
+  color: var(--secondary);
+}
+
 .scroll-hide {
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE и Edge */
@@ -39,4 +43,8 @@ body {
 
 .scroll-hide::-webkit-scrollbar {
   display: none; /* Chrome и Safari */
+}
+
+html {
+  scroll-padding-top: 100px; /* или сколько нужно */
 }
