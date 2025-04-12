@@ -15,8 +15,7 @@ const Category = ({ categoryId, name, items }: Props) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
   const intersectionRef = useRef<HTMLElement>(null);
   const intersection = useIntersection(intersectionRef, {
-    threshold: 0.15,
-    rootMargin: "0px 0px -40% 0px", // как бы поднимает границу
+    rootMargin: "-30% 0px -70% 0px",
   });
 
   useEffect(() => {
