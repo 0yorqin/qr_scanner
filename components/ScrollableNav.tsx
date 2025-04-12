@@ -82,7 +82,6 @@ export default function ScrollableNav({ categories }: { categories: any[] }) {
               href={`#${category.id}`}
               onClick={(e) => {
                 e.preventDefault();
-                console.log(categoryActiveId, category.id);
                 const section = document.getElementById(category.id);
                 if (section) {
                   section.scrollIntoView({
