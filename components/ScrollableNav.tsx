@@ -38,6 +38,29 @@ export default function ScrollableNav({ categories }: { categories: any[] }) {
     }
   }, [categoryActiveId]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const categories = document.querySelectorAll("[data-category-id]");
+      let closestId = "";
+      let minOffset = Infinity;
+
+      categories.forEach((el) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top >= 0 && rect.top < minOffset) {
+          minOffset = rect.top;
+          closestId = el.getAttribute("data-category-id")!;
+        }
+      });
+
+      if (closestId && closestId !== categoryActiveId) {
+        setActiveCategoryId(closestId);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="bg-white rounded-b-xl shadow-lg py-2 px-2 flex flex-row justify-between max-sm:justify-center items-center sticky top-0 z-10">
       <button
@@ -59,6 +82,7 @@ export default function ScrollableNav({ categories }: { categories: any[] }) {
               href={`#${category.id}`}
               onClick={(e) => {
                 e.preventDefault();
+                console.log(categoryActiveId, category.id);
                 const section = document.getElementById(category.id);
                 if (section) {
                   section.scrollIntoView({

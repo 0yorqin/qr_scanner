@@ -13,17 +13,25 @@ interface Props {
 
 const Category = ({ categoryId, name, items }: Props) => {
   const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
-  const intersectionRef = useRef(null);
-  const intersection = useIntersection(intersectionRef, { threshold: 0.4 });
+  const intersectionRef = useRef<HTMLElement>(null);
+  const intersection = useIntersection(intersectionRef, {
+    threshold: 0.3,
+    rootMargin: "-80px 0px 0px 0px",
+  });
 
   useEffect(() => {
     if (intersection?.isIntersecting) {
       setActiveCategoryId(categoryId);
     }
-  }, [intersection, setActiveCategoryId, categoryId]);
+  }, [intersection?.isIntersecting, setActiveCategoryId, categoryId]);
 
   return (
-    <div id={categoryId} className="mb-8 p-2" ref={intersectionRef}>
+    <div
+      id={categoryId}
+      data-category-id={categoryId}
+      className="mb-8 p-2"
+      ref={intersectionRef}
+    >
       <h1 className="text-2xl font-bold mb-4">{name}</h1>
 
       <div className="flex flex-wrap justify-start gap-2 w-full">
