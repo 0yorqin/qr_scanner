@@ -26,7 +26,7 @@ const ItemCard = ({
       </div>
       <h2 className="text-xl font-bold ml-2">{name}</h2>
       <p className="text-2xl font-proxima-bold ml-2 text-primary">
-        {size.prices[0].price.toLocaleString()} UZS
+        {size.prices[0].price} UZS
       </p>
     </div>
   );
