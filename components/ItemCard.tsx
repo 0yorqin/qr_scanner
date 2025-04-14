@@ -17,8 +17,11 @@ const ItemCard = ({ item }: { item: Item }) => {
   const { name, itemSizes } = item;
   const size = itemSizes[0];
   return (
-    <Link href={`/product/${item.itemId}`}>
-      <div className="md:w-[286px] h-[310px] max-sm:w-[48%] bg-white rounded-xl hover:shadow-lg transition mb-4 flex flex-col gap-4">
+    <Link
+      href={`/product/${item.itemId}`}
+      className="md:w-[286px] h-[310px] max-sm:w-[48%] bg-white rounded-xl hover:shadow-lg transition mb-4 flex flex-col gap-4"
+    >
+      <div>
         <div className="rounded-t-xl h-[200px] overflow-hidden">
           <Image
             src={
