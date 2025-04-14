@@ -6,7 +6,7 @@ export default async function ProductModal({
 }: {
   params: { id: string };
 }) {
-  const { id: productId } = params;
+  const { id: productId } = await params;
   const menu = await getLocalMenu();
 
   const product = menu.itemCategories
