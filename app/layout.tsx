@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
-import Header from "@/components/Header";
 
 export const proximaNova = localFont({
   src: "../public/fonts/ProximaNovaRegular.ttf",
@@ -28,21 +27,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
 }: {
   children: React.ReactNode;
-  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body
         className={`${proximaNova.variable} ${proximaNovaBold.variable} ${aquino.variable}`}
       >
-        <div className="lg:max-w-[1200px] md:max-w-[900px] mx-auto">
-          <Header />
-          {children}
-          {modal}
-        </div>
+        {children}
       </body>
     </html>
   );
