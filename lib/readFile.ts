@@ -1,12 +1,7 @@
-"use server";
-
-import fs from "fs/promises";
-import path from "path";
+"use client";
 
 export async function getLocalMenu() {
-  const filePath = path.join(process.cwd(), "response.json"); // путь к файлу
-  const content = await fs.readFile(filePath, "utf-8");
-  const data = JSON.parse(content);
-
+  const res = await fetch("/api/iiko/menu", { method: "POST" });
+  const data = await res.json();
   return data;
 }
