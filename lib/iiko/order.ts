@@ -27,7 +27,7 @@ export async function submitIikoOrder(payload: {
     },
   };
 
-  const res = await fetch("https://api-ru.iiko.services/api/1/deliveries/create", {
+  const res = await fetch("https://api-ru.iiko.services/api/1/order/create", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,

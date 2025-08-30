@@ -1,14 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useCartStore } from "@/store/cart";
 import { useTableStore } from "@/store/table";
 
 export default function CartBar() {
-  const { totalQty, subtotal, asArray, clear } = useCartStore();
+  const items = useCartStore((s) => s.items);
+  const clear = useCartStore((s) => s.clear);
   const tableId = useTableStore((s) => s.tableId);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  const { totalQty, subtotal, itemsArray } = useMemo(() => {
+    const arr = Object.values(items);
+    const qty = arr.reduce((a, b) => a + b.qty, 0);
+    const sub = arr.reduce((a, b) => a + b.qty * (b.price ?? 0), 0);
+    return { totalQty: qty, subtotal: sub, itemsArray: arr };
+  }, [items]);
 
   if (totalQty === 0) return null;
 
@@ -21,7 +29,7 @@ export default function CartBar() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           tableId,
-          items: asArray().map((i) => ({
+          items: itemsArray.map((i) => ({
             id: i.id,
             qty: i.qty,
             price: i.price,
@@ -48,7 +56,7 @@ export default function CartBar() {
       <div className="bg-black text-white rounded-full px-5 py-3 flex items-center gap-3 shadow-xl">
         <span>{totalQty} items</span>
         <span className="opacity-70">•</span>
-        <span>{(subtotal / 100).toFixed(2)}</span>
+        <span>{(subtotal / 100).toFixed(2)} UZS</span>
         <button
           onClick={placeOrder}
           disabled={loading || !tableId}
